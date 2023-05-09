@@ -18,36 +18,42 @@ export default function Form({
       <input
         type="text"
         data-testid="name-input"
+        name="cardName"
         value={ cardName }
         onChange={ onInputChange }
       />
       <textarea
         data-testid="description-input"
         value={ cardDescription }
+        name="cardDescription"
         onChange={ onInputChange }
       />
       <input
         type="number"
         data-testid="attr1-input"
         value={ cardAttr1 }
+        name="cardAttr1"
         onChange={ onInputChange }
       />
       <input
         type="number"
         data-testid="attr2-input"
         value={ cardAttr2 }
+        name="cardAttr2"
         onChange={ onInputChange }
       />
       <input
         type="number"
         data-testid="attr3-input"
         value={ cardAttr3 }
+        name="cardAttr3"
         onChange={ onInputChange }
       />
       <input
         type="text"
         data-testid="image-input"
         value={ cardImage }
+        name="cardImage"
         onChange={ onInputChange }
       />
       <select data-testid="rare-input" value={ cardRare } onChange={ onInputChange }>
@@ -59,6 +65,7 @@ export default function Form({
         type="checkbox"
         data-testid="trunfo-input"
         checked={ cardTrunfo }
+        name="cardTrunfo"
         onChange={ onInputChange }
       />
       <button
