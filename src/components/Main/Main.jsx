@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { filterCards } from '../helper/filter';
-import { validate } from '../helper/validate';
-import Card from './Card';
-import Filter from './Filter';
-import Form from './Form';
+
+import { filterCards } from '../../helper/filter';
+import { validate } from '../../helper/validate';
+import Card from '../Card';
+import Filter from '../Filter';
+import Form from '../Form';
+import './main.css';
 
 const initialInput = {
   cardName: '',
@@ -56,7 +58,7 @@ function Main() {
   };
 
   return (
-    <div>
+    <div className="container">
       <Filter { ...filters } onChange={ handleFilterChange } />
       <Form
         { ...inputs }

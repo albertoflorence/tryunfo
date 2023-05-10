@@ -1,5 +1,8 @@
 import { PropTypes } from 'prop-types';
 
+import './form.css';
+import TextField from '../TextField/TextField';
+
 export default function Form({
   cardName,
   cardDescription,
@@ -18,7 +21,7 @@ export default function Form({
     ? (
       <p>Você já tem um Super Trunfo em seu baralho</p>
     ) : (
-      <input
+      <TextField
         type="checkbox"
         data-testid="trunfo-input"
         checked={ cardTrunfo }
@@ -27,8 +30,8 @@ export default function Form({
       />
     );
   return (
-    <form>
-      <input
+    <form className="form">
+      <TextField
         type="text"
         data-testid="name-input"
         name="cardName"
@@ -41,28 +44,28 @@ export default function Form({
         name="cardDescription"
         onChange={ onInputChange }
       />
-      <input
+      <TextField
         type="number"
         data-testid="attr1-input"
         value={ cardAttr1 }
         name="cardAttr1"
         onChange={ onInputChange }
       />
-      <input
+      <TextField
         type="number"
         data-testid="attr2-input"
         value={ cardAttr2 }
         name="cardAttr2"
         onChange={ onInputChange }
       />
-      <input
+      <TextField
         type="number"
         data-testid="attr3-input"
         value={ cardAttr3 }
         name="cardAttr3"
         onChange={ onInputChange }
       />
-      <input
+      <TextField
         type="text"
         data-testid="image-input"
         value={ cardImage }
