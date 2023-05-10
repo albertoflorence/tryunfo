@@ -9,10 +9,23 @@ export default function Form({
   cardImage,
   cardRare,
   cardTrunfo,
+  hasTrunfo,
   isSaveButtonDisabled,
   onInputChange,
   onSaveButtonClick,
 }) {
+  const renderTrunfo = hasTrunfo
+    ? (
+      <p>Você já tem um Super Trunfo em seu baralho</p>
+    ) : (
+      <input
+        type="checkbox"
+        data-testid="trunfo-input"
+        checked={ cardTrunfo }
+        name="cardTrunfo"
+        onChange={ onInputChange }
+      />
+    );
   return (
     <form>
       <input
@@ -61,13 +74,7 @@ export default function Form({
         <option value="raro">raro</option>
         <option value="muito raro">muito raro</option>
       </select>
-      <input
-        type="checkbox"
-        data-testid="trunfo-input"
-        checked={ cardTrunfo }
-        name="cardTrunfo"
-        onChange={ onInputChange }
-      />
+      {renderTrunfo}
       <button
         onClick={ onSaveButtonClick }
         data-testid="save-button"
@@ -88,6 +95,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,

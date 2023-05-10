@@ -28,6 +28,7 @@ const sumAttrs = ({
 function App() {
   const [inputs, setInputs] = useState(initialInput);
   const [isValid, setIsValid] = useState(false);
+  const [hasTrunfo, setHasTrunfo] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -44,12 +45,14 @@ function App() {
 
   const handleSaveButton = () => {
     setInputs(initialInput);
+    if (inputs.cardTrunfo) setHasTrunfo(true);
   };
 
   return (
     <div>
       <Form
         { ...inputs }
+        hasTrunfo={ hasTrunfo }
         onInputChange={ handleInputChange }
         onSaveButtonClick={ handleSaveButton }
         isSaveButtonDisabled={ !isValid }
