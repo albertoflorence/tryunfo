@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { validate } from './helper/validate';
 import Form from './components/Form';
 import Card from './components/Card';
+import Filter from './components/Filter';
 
 const initialInput = {
   cardName: '',
@@ -30,6 +31,7 @@ function App() {
   const [isValid, setIsValid] = useState(false);
   const [hasTrunfo, setHasTrunfo] = useState(false);
   const [cards, setCards] = useState([]);
+  const [filter, setFilter] = useState('');
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -44,7 +46,10 @@ function App() {
     }
   }, [inputs]);
 
-  const handleSaveButton = () => {
+  const filterCards = (arr) => arr.filter((card) => card.cardName.includes(filter));
+
+  const handleSaveButton = (event) => {
+    event.preventDefault();
     setCards([...cards, inputs]);
     setInputs(initialInput);
     if (inputs.cardTrunfo) setHasTrunfo(true);
@@ -57,6 +62,7 @@ function App() {
 
   return (
     <div>
+      <Filter filter={ filter } onChange={ setFilter } />
       <Form
         { ...inputs }
         hasTrunfo={ hasTrunfo }
@@ -66,7 +72,7 @@ function App() {
       />
       <Card { ...inputs } />
       <div>
-        {cards.map((card) => (
+        {filterCards(cards).map((card) => (
           <div key={ card.cardName }>
             <Card { ...card } />
             <button
