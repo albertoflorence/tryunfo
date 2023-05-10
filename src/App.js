@@ -7,10 +7,10 @@ const initialInput = {
   cardName: '',
   cardImage: '',
   cardDescription: '',
-  cardAttr1: '',
-  cardAttr2: '',
-  cardAttr3: '',
-  cardRare: '',
+  cardAttr1: '0',
+  cardAttr2: '0',
+  cardAttr3: '0',
+  cardRare: 'normal',
   cardTrunfo: false,
 };
 
@@ -42,7 +42,9 @@ function App() {
     }
   }, [inputs]);
 
-  const handleSaveButton = () => {};
+  const handleSaveButton = () => {
+    setInputs(initialInput);
+  };
 
   return (
     <div>
