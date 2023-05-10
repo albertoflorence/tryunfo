@@ -29,6 +29,7 @@ function App() {
   const [inputs, setInputs] = useState(initialInput);
   const [isValid, setIsValid] = useState(false);
   const [hasTrunfo, setHasTrunfo] = useState(false);
+  const [cards, setCards] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -44,6 +45,7 @@ function App() {
   }, [inputs]);
 
   const handleSaveButton = () => {
+    setCards([...cards, inputs]);
     setInputs(initialInput);
     if (inputs.cardTrunfo) setHasTrunfo(true);
   };
@@ -58,6 +60,9 @@ function App() {
         isSaveButtonDisabled={ !isValid }
       />
       <Card { ...inputs } />
+      <div>
+        {cards.map((card) => (<Card { ...card } key={ card.cardName } />))}
+      </div>
     </div>
   );
 }
