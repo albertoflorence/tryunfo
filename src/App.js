@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { validate } from './helper/validate';
 import Form from './components/Form';
 import Card from './components/Card';
 
@@ -19,13 +20,27 @@ const formatValue = (value) => {
   return value;
 };
 
+const sumAttrs = ({
+  cardAttr1,
+  cardAttr2,
+  cardAttr3 }) => Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
+
 function App() {
   const [inputs, setInputs] = useState(initialInput);
+  const [isValid, setIsValid] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setInputs({ ...inputs, [name]: formatValue(value) });
   };
+
+  useEffect(() => {
+    if (validate({ ...inputs, sum: sumAttrs(inputs) })) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [inputs]);
 
   const handleSaveButton = () => {};
 
@@ -35,7 +50,7 @@ function App() {
         { ...inputs }
         onInputChange={ handleInputChange }
         onSaveButtonClick={ handleSaveButton }
-        isSaveButtonDisabled
+        isSaveButtonDisabled={ !isValid }
       />
       <Card { ...inputs } />
     </div>
