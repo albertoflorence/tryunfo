@@ -50,6 +50,11 @@ function App() {
     if (inputs.cardTrunfo) setHasTrunfo(true);
   };
 
+  const handleDeleteCard = (card) => {
+    if (card.cardTrunfo) setHasTrunfo(false);
+    setCards(cards.filter(({ cardName }) => card.cardName !== cardName));
+  };
+
   return (
     <div>
       <Form
@@ -61,7 +66,17 @@ function App() {
       />
       <Card { ...inputs } />
       <div>
-        {cards.map((card) => (<Card { ...card } key={ card.cardName } />))}
+        {cards.map((card) => (
+          <div key={ card.cardName }>
+            <Card { ...card } />
+            <button
+              data-testid="delete-button"
+              onClick={ () => handleDeleteCard(card) }
+            >
+              Excluir
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
