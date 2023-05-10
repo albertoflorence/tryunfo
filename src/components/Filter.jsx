@@ -1,33 +1,35 @@
 import { PropTypes } from 'prop-types';
 
 export default function Filter({ onChange, ...filters }) {
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    onChange({
-      ...filters,
-      [name]: value,
-    });
-  };
   return (
     <div>
       <input
-        type="text"
         data-testid="name-filter"
-        value={ filters.byName }
+        type="text"
         name="byName"
-        onChange={ handleChange }
+        value={ filters.byName }
+        onChange={ onChange }
+        disabled={ filters.byTrunfo }
       />
       <select
         data-testid="rare-filter"
         name="byRarity"
-        onChange={ handleChange }
         value={ filters.byRarity }
+        onChange={ onChange }
+        disabled={ filters.byTrunfo }
       >
         <option value="todas">todas</option>
         <option value="normal">normal</option>
         <option value="raro">raro</option>
         <option value="muito raro">muito raro</option>
       </select>
+      <input
+        data-testid="trunfo-filter"
+        type="checkbox"
+        name="byTrunfo"
+        checked={ filters.byTrunfo }
+        onChange={ onChange }
+      />
     </div>
   );
 }

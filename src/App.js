@@ -16,10 +16,17 @@ const initialInput = {
   cardTrunfo: false,
 };
 
+const initialFilters = { byName: '', byRarity: 'todas', byTrunfo: false };
+
 const formatValue = (value) => {
   if (value === 'on') return true;
   if (value === 'off') return false;
   return value;
+};
+
+const handleChange = (event, callback) => {
+  const { name, value } = event.target;
+  callback((inputs) => ({ ...inputs, [name]: formatValue(value) }));
 };
 
 const sumAttrs = ({
@@ -32,12 +39,10 @@ function App() {
   const [isValid, setIsValid] = useState(false);
   const [hasTrunfo, setHasTrunfo] = useState(false);
   const [cards, setCards] = useState([]);
-  const [filters, setFilters] = useState({ byName: '', byRarity: 'todas' });
+  const [filters, setFilters] = useState(initialFilters);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInputs({ ...inputs, [name]: formatValue(value) });
-  };
+  const handleInputChange = (event) => handleChange(event, setInputs);
+  const handleFilterChange = (event) => handleChange(event, setFilters);
 
   useEffect(() => {
     if (validate({ ...inputs, sum: sumAttrs(inputs) })) {
@@ -61,7 +66,7 @@ function App() {
 
   return (
     <div>
-      <Filter { ...filters } onChange={ setFilters } />
+      <Filter { ...filters } onChange={ handleFilterChange } />
       <Form
         { ...inputs }
         hasTrunfo={ hasTrunfo }
