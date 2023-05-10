@@ -3,7 +3,8 @@ const cardFilters = {
   byRarity: (card, filter) => (filter === 'todas'
     ? card
     : card.cardRare === filter),
-  byTrunfo: (card, filter) => card.cardTrunfo === filter,
+  byTrunfo: (card, filter) => (filter ? card.cardTrunfo === true : card),
+
 };
 
 const applyFilter = (cards, [filterName, input]) => cards

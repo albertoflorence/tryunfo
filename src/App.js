@@ -18,15 +18,10 @@ const initialInput = {
 
 const initialFilters = { byName: '', byRarity: 'todas', byTrunfo: false };
 
-const formatValue = (value) => {
-  if (value === 'on') return true;
-  if (value === 'off') return false;
-  return value;
-};
+const formatValue = ({ value, type, checked }) => (type === 'checkbox' ? checked : value);
 
-const handleChange = (event, callback) => {
-  const { name, value } = event.target;
-  callback((inputs) => ({ ...inputs, [name]: formatValue(value) }));
+const handleChange = ({ target }, callback) => {
+  callback((inputs) => ({ ...inputs, [target.name]: formatValue(target) }));
 };
 
 const sumAttrs = ({
@@ -45,11 +40,7 @@ function App() {
   const handleFilterChange = (event) => handleChange(event, setFilters);
 
   useEffect(() => {
-    if (validate({ ...inputs, sum: sumAttrs(inputs) })) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+    setIsValid(validate({ ...inputs, sum: sumAttrs(inputs) }));
   }, [inputs]);
 
   const handleSaveButton = (event) => {
@@ -79,10 +70,7 @@ function App() {
         {filterCards(cards, filters).map((card) => (
           <div key={ card.cardName }>
             <Card { ...card } />
-            <button
-              data-testid="delete-button"
-              onClick={ () => handleDeleteCard(card) }
-            >
+            <button data-testid="delete-button" onClick={ () => handleDeleteCard(card) }>
               Excluir
             </button>
           </div>
