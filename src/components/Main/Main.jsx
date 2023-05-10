@@ -47,6 +47,7 @@ function Main() {
 
   const handleSaveButton = (event) => {
     event.preventDefault();
+    if (!isValid) return;
     setCards([...cards, inputs]);
     setInputs(initialInput);
     if (inputs.cardTrunfo) setHasTrunfo(true);

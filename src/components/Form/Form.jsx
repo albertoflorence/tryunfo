@@ -2,94 +2,61 @@ import { PropTypes } from 'prop-types';
 
 import './form.css';
 import TextField from '../TextField/TextField';
+import { inputs } from './inputs';
 
 export default function Form({
-  cardName,
-  cardDescription,
-  cardAttr1,
-  cardAttr2,
-  cardAttr3,
-  cardImage,
   cardRare,
   cardTrunfo,
   hasTrunfo,
   isSaveButtonDisabled,
   onInputChange,
   onSaveButtonClick,
+  ...filters
 }) {
-  const renderTrunfo = hasTrunfo
-    ? (
-      <p>Você já tem um Super Trunfo em seu baralho</p>
-    ) : (
-      <TextField
-        type="checkbox"
-        data-testid="trunfo-input"
-        checked={ cardTrunfo }
-        name="cardTrunfo"
-        onChange={ onInputChange }
-      />
-    );
+  const renderTrunfo = hasTrunfo ? (
+    <p>Você já tem um Super Trunfo em seu baralho</p>
+  ) : (
+    <TextField
+      type="checkbox"
+      data-testid="trunfo-input"
+      label="Super Trunfo"
+      checked={ cardTrunfo }
+      name="cardTrunfo"
+      onChange={ onInputChange }
+    />
+  );
   return (
-    <form className="form">
-      <TextField
-        type="text"
-        data-testid="name-input"
-        name="cardName"
-        value={ cardName }
-        onChange={ onInputChange }
-      />
-      <textarea
-        data-testid="description-input"
-        value={ cardDescription }
-        name="cardDescription"
-        onChange={ onInputChange }
-      />
-      <TextField
-        type="number"
-        data-testid="attr1-input"
-        value={ cardAttr1 }
-        name="cardAttr1"
-        onChange={ onInputChange }
-      />
-      <TextField
-        type="number"
-        data-testid="attr2-input"
-        value={ cardAttr2 }
-        name="cardAttr2"
-        onChange={ onInputChange }
-      />
-      <TextField
-        type="number"
-        data-testid="attr3-input"
-        value={ cardAttr3 }
-        name="cardAttr3"
-        onChange={ onInputChange }
-      />
-      <TextField
-        type="text"
-        data-testid="image-input"
-        value={ cardImage }
-        name="cardImage"
-        onChange={ onInputChange }
-      />
-      <select
-        data-testid="rare-input"
-        value={ cardRare }
-        name="cardRare"
-        onChange={ onInputChange }
-      >
-        <option value="normal">normal</option>
-        <option value="raro">raro</option>
-        <option value="muito raro">muito raro</option>
-      </select>
-      {renderTrunfo}
-      <button
-        onClick={ onSaveButtonClick }
-        data-testid="save-button"
-        disabled={ isSaveButtonDisabled }
-      >
-        Salvar
-      </button>
+    <form className="form" onSubmit={ onSaveButtonClick }>
+      <section>
+        <h1 className="title">adicione uma nova carta</h1>
+        {inputs.map(({ name, ...props }) => (
+          <TextField
+            key={ name }
+            { ...props }
+            name={ name }
+            value={ filters[name] }
+            onChange={ onInputChange }
+          />
+        ))}
+        <select
+          data-testid="rare-input"
+          value={ cardRare }
+          name="cardRare"
+          onChange={ onInputChange }
+        >
+          <option value="normal">normal</option>
+          <option value="raro">raro</option>
+          <option value="muito raro">muito raro</option>
+        </select>
+        {renderTrunfo}
+        <button
+          type="submit"
+          data-testid="save-button"
+          disabled={ isSaveButtonDisabled }
+        >
+          Salvar
+        </button>
+      </section>
     </form>
   );
 }

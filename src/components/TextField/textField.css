@@ -1,5 +1,9 @@
 .wrapper {
-  color: inherit;
+  align-items: center;
+  color: #3d495c;
+  display: flex;
+  gap: 16px;
+  width: 100%;
 }
 
 .label {
@@ -7,5 +11,12 @@
 }
 
 .input {
-  color: inherit;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 4px;
+}
+
+.input:hover, :focus {
+  border-color: transparent;
+  outline: 1px solid green;
 }
