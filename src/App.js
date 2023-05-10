@@ -3,6 +3,7 @@ import { validate } from './helper/validate';
 import Form from './components/Form';
 import Card from './components/Card';
 import Filter from './components/Filter';
+import { filterCards } from './helper/filter';
 
 const initialInput = {
   cardName: '',
@@ -31,7 +32,7 @@ function App() {
   const [isValid, setIsValid] = useState(false);
   const [hasTrunfo, setHasTrunfo] = useState(false);
   const [cards, setCards] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [filters, setFilters] = useState({ byName: '', byRarity: 'todas' });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -45,8 +46,6 @@ function App() {
       setIsValid(false);
     }
   }, [inputs]);
-
-  const filterCards = (arr) => arr.filter((card) => card.cardName.includes(filter));
 
   const handleSaveButton = (event) => {
     event.preventDefault();
@@ -62,7 +61,7 @@ function App() {
 
   return (
     <div>
-      <Filter filter={ filter } onChange={ setFilter } />
+      <Filter { ...filters } onChange={ setFilters } />
       <Form
         { ...inputs }
         hasTrunfo={ hasTrunfo }
@@ -72,7 +71,7 @@ function App() {
       />
       <Card { ...inputs } />
       <div>
-        {filterCards(cards).map((card) => (
+        {filterCards(cards, filters).map((card) => (
           <div key={ card.cardName }>
             <Card { ...card } />
             <button

@@ -69,7 +69,12 @@ export default function Form({
         name="cardImage"
         onChange={ onInputChange }
       />
-      <select data-testid="rare-input" value={ cardRare } onChange={ onInputChange }>
+      <select
+        data-testid="rare-input"
+        value={ cardRare }
+        name="cardRare"
+        onChange={ onInputChange }
+      >
         <option value="normal">normal</option>
         <option value="raro">raro</option>
         <option value="muito raro">muito raro</option>
