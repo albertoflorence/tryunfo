@@ -19,7 +19,6 @@ export default function Card({
   };
   return (
     <section className="card">
-      <h1 className="title">pré-visualização</h1>
       <div className="card-inner">
         <div>
           <h3 data-testid="name-card">{cardName}</h3>
