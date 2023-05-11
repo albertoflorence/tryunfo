@@ -1,22 +1,65 @@
 .wrapper {
   align-items: center;
   color: #3d495c;
-  display: flex;
-  gap: 16px;
   width: 100%;
 }
 
-.label {
-  color: inherit;
+.wrapper.outlined {
+  align-items: center;
+  display: flex;
+  gap: 16px;
 }
 
-.input {
-  border: 1px solid black;
+.wrapper > div {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 16px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+input, textarea, select {
+  border: 1px solid transparent;
+  border-bottom-color: #023031;
   border-radius: 2px;
-  padding: 4px;
+  overflow: hidden;
+  padding: 10px;
+  width: 100%;
 }
 
-.input:hover, :focus {
+.input:hover, .input:focus {
+  border-bottom-color: #023031;
+  outline: none;
+}
+
+.outlined .input {
+  border-color: #023031;
+}
+
+.wrapper.outlined .input:hover, .wrapper.outlined .input:focus {
   border-color: transparent;
-  outline: 1px solid green;
+  outline: 2px solid green;
+}
+
+.iconWrapper {
+  background-color: #023031;
+  height: 100%;
+  padding: 0 6px;
+  position: absolute;
+  right: 0;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.errorWrapper {
+  align-items: center;
+  display: flex;
+  height: 24px;
+  width: 24px;
 }
