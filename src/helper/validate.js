@@ -5,7 +5,7 @@ const MIN_ATTR = 0;
 const MAX_ATTR = 90;
 const MAX_SUM = 210;
 
-const validateObject = {
+export const validateObject = {
   cardName: hasValue,
   cardImage: hasValue,
   cardDescription: hasValue,

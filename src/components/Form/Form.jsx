@@ -11,6 +11,7 @@ export default function Form({
   isSaveButtonDisabled,
   onInputChange,
   onSaveButtonClick,
+  validate = () => true,
   ...filters
 }) {
   const renderTrunfo = hasTrunfo ? (
@@ -27,7 +28,7 @@ export default function Form({
   );
   return (
     <form className="form" onSubmit={ onSaveButtonClick }>
-      <section>
+      <section className="form-content">
         <h1 className="title">adicione uma nova carta</h1>
         {inputs.map(({ name, ...props }) => (
           <TextField
@@ -36,18 +37,24 @@ export default function Form({
             name={ name }
             value={ filters[name] }
             onChange={ onInputChange }
+            error={ !validate(name, filters[name]) }
           />
         ))}
-        <select
-          data-testid="rare-input"
-          value={ cardRare }
-          name="cardRare"
-          onChange={ onInputChange }
-        >
-          <option value="normal">normal</option>
-          <option value="raro">raro</option>
-          <option value="muito raro">muito raro</option>
-        </select>
+        <div>
+          <label htmlFor="cardRare">Raridade</label>
+          <select
+            data-testid="rare-input"
+            value={ cardRare }
+            name="cardRare"
+            id="cardRare"
+            onChange={ onInputChange }
+            className="input"
+          >
+            <option value="normal">normal</option>
+            <option value="raro">raro</option>
+            <option value="muito raro">muito raro</option>
+          </select>
+        </div>
         {renderTrunfo}
         <button
           type="submit"
@@ -71,6 +78,7 @@ Form.propTypes = {
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
   hasTrunfo: PropTypes.bool.isRequired,
+  validate: PropTypes.func,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,

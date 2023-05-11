@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { filterCards } from '../../helper/filter';
-import { validate } from '../../helper/validate';
+import { validate, validateObject } from '../../helper/validate';
 import Card from '../Card';
 import Filter from '../Filter';
 import Form from '../Form';
@@ -67,6 +67,7 @@ function Main() {
         onInputChange={ handleInputChange }
         onSaveButtonClick={ handleSaveButton }
         isSaveButtonDisabled={ !isValid }
+        validate={ (key, value) => validateObject[key] && validateObject[key](value) }
       />
       <Card { ...inputs } />
       <div>
