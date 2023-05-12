@@ -1,3 +1,6 @@
+/* stylelint-disable function-parentheses-space-inside */
+
+/* stylelint-disable function-comma-space-after */
 .card {
   align-items: center;
   color: white;
@@ -96,11 +99,33 @@
   width: 50px;
 }
 
+.card-rare {
+  background-clip: text;
+  background-image: linear-gradient(
+    to bottom,
+    #cfc09f 22%,
+    #634f2c 24%,
+    #cfc09f 26%,
+    #cfc09f 27%,
+    #ffecb3 40%,
+    #3a2c0f 78%
+  );
+  color: transparent;
+  font-family: Playfair Display , serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 800;
+  left: 35px;
+  position: absolute;
+  text-shadow: rgba(245, 245, 245, 0.5) 1px 1px 1px;
+  top: 66px;
+}
+
 .card-trunfo {
   height: 70px;
   position: absolute;
   right: 4px;
-  top: 40%;
+  top: 36%;
   width: 115px;
 }
 

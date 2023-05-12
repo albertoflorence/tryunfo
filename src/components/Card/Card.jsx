@@ -38,7 +38,7 @@ export default function Card({
             cardAttr2={ cardAttr2 }
             cardAttr3={ cardAttr3 }
           />
-          <p data-testid="rare-card">{cardRare}</p>
+          <p data-testid="rare-card" className="card-rare">{cardRare}</p>
         </div>
       </div>
       {cardTrunfo && (
