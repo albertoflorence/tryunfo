@@ -43,7 +43,7 @@ export default function TextField({
 TextField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   hasError: PropTypes.bool,
   multiline: PropTypes.bool,
   outlined: PropTypes.bool,

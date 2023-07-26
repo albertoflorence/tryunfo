@@ -3,7 +3,7 @@ const hasValue = (input) => input.trim().length !== 0;
 
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
-const MAX_SUM = 210;
+const MAX_TOTAL = 210;
 
 export const validateObject = {
   cardName: hasValue,
@@ -12,7 +12,7 @@ export const validateObject = {
   cardAttr1: range(MIN_ATTR, MAX_ATTR),
   cardAttr2: range(MIN_ATTR, MAX_ATTR),
   cardAttr3: range(MIN_ATTR, MAX_ATTR),
-  sum: range(MIN_ATTR, MAX_SUM),
+  total: range(MIN_ATTR, MAX_TOTAL),
 };
 
 export const validate = (inputs) => Object

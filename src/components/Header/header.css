@@ -1,11 +1,10 @@
 .header {
-  height: 300px;
-  margin: 0 auto;
-  max-width: 500px;
+  height: 400px;
+  margin: 0 auto 30px;
+  max-width: 600px;
 }
 
 .header img {
   height: 100%;
   width: 100%;
 }
-

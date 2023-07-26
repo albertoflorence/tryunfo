@@ -5,6 +5,8 @@ import { validate, validateObject } from '../../helper/validate';
 import Card from '../Card';
 import Filter from '../Filter/Filter';
 import Form from '../Form';
+import wait from '../../helper/wait';
+import { initialCards } from './cards';
 import './main.css';
 
 const initialInput = {
@@ -17,6 +19,9 @@ const initialInput = {
   cardRare: 'normal',
   cardTrunfo: false,
 };
+
+const DIGITS = 3;
+const MAX_SUM = 210;
 
 const initialFilters = { byName: '', byRarity: 'todas', byTrunfo: false };
 
@@ -31,16 +36,9 @@ const sumAttrs = ({
   cardAttr2,
   cardAttr3 }) => Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
 
-const initialCards = Array.from({ length: 9 }, (_, i) => ({ cardName: 'Javascript' + i,
-  cardImage: 'https://arquivo.devmedia.com.br/noticias/artigos/artigo_javascript-reduce-reduzindo-uma-colecao-em-um-unico-objeto_37981.jpg',
-  cardDescription: 'JavaScript é uma linguagem de programação interpretada estruturada, de script em alto nível com tipagem dinâmica fraca e multiparadigma. Juntamente com HTML e CSS.',
-  cardAttr1: '90',
-  cardAttr2: '90',
-  cardAttr3: '90',
-  cardRare: 'normal',
-  cardTrunfo: true }));
+const reamingPoints = (inputs) => MAX_SUM - sumAttrs(inputs);
 
-  console.log(initialCards)
+const formatNumber = (number) => number.toString().padStart(DIGITS, '0');
 
 function Main() {
   const [inputs, setInputs] = useState(initialInput);
@@ -48,20 +46,26 @@ function Main() {
   const [hasTrunfo, setHasTrunfo] = useState(false);
   const [cards, setCards] = useState(initialCards);
   const [filters, setFilters] = useState(initialFilters);
+  const [animation, setAnimation] = useState(false);
 
   const handleInputChange = (event) => handleChange(event, setInputs);
   const handleFilterChange = (event) => handleChange(event, setFilters);
 
   useEffect(() => {
-    setIsValid(validate({ ...inputs, sum: sumAttrs(inputs) }));
+    setIsValid(validate({ ...inputs, total: sumAttrs(inputs) }));
   }, [inputs]);
 
-  const handleSaveButton = (event) => {
+  const handleSaveButton = async (event) => {
     event.preventDefault();
     if (!isValid) return;
+    const TIMER = 600;
+    setAnimation(true);
+    await wait(TIMER);
+    setAnimation(false);
     setCards([...cards, inputs]);
     setInputs(initialInput);
     if (inputs.cardTrunfo) setHasTrunfo(true);
+    console.log(cards);
   };
 
   const handleDeleteCard = (card) => {
@@ -78,11 +82,15 @@ function Main() {
           onInputChange={ handleInputChange }
           onSaveButtonClick={ handleSaveButton }
           isSaveButtonDisabled={ !isValid }
+          total={ formatNumber(sumAttrs(inputs)) }
+          reamingPoints={ formatNumber(reamingPoints(inputs)) }
           validate={ (key, value) => validateObject[key] && validateObject[key](value) }
         />
         <section className="card-content">
           <h1 className="title">pré-visualização</h1>
-          <Card { ...inputs } />
+          <div className={ animation ? 'dropDown' : '' }>
+            <Card { ...inputs } />
+          </div>
         </section>
 
       </section>

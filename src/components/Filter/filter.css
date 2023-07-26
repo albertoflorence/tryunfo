@@ -2,6 +2,7 @@
   align-items: center;
   background-color: #036b52;
   border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
   display: flex;
   font-size: 14px;
@@ -42,7 +43,9 @@
 }
 
 .filter-trunfo {
+  accent-color: white;
   align-items: center;
   display: flex;
   gap: 8px;
+
 }

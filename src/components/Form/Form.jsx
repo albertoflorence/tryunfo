@@ -5,6 +5,8 @@ import TextField from '../TextField/TextField';
 import { inputs } from './inputs';
 
 export default function Form({
+  reamingPoints,
+  total,
   cardRare,
   cardTrunfo,
   hasTrunfo,
@@ -17,29 +19,45 @@ export default function Form({
   const renderTrunfo = hasTrunfo ? (
     <p>Você já tem um Super Trunfo em seu baralho</p>
   ) : (
-    <TextField
-      type="checkbox"
-      data-testid="trunfo-input"
-      label="Super Trunfo"
-      checked={ cardTrunfo }
-      name="cardTrunfo"
-      onChange={ onInputChange }
-    />
+    <label htmlFor="cardTrunfo" className="form-trunfo">
+      <input
+        type="checkbox"
+        data-testid="trunfo-input"
+        checked={ cardTrunfo }
+        id="cardTrunfo"
+        name="cardTrunfo"
+        onChange={ onInputChange }
+      />
+      Super Trybe Trunfo
+    </label>
   );
+
+  const renderInputs = inputs.map(({ name, ...props }) => (
+    <TextField
+      key={ name }
+      { ...props }
+      name={ name }
+      value={ filters[name] }
+      onChange={ onInputChange }
+      error={ !validate(name, filters[name]) }
+    />
+  ));
+
+  renderInputs.splice(
+    inputs.length - 1,
+    0,
+    <p key="reamingPoints" className="reaming-points">
+      Pontos restantes =
+      {' '}
+      {reamingPoints}
+    </p>,
+  );
+
   return (
     <form className="form" onSubmit={ onSaveButtonClick }>
       <section className="form-content">
-        <h1 className="title">adicione uma nova carta</h1>
-        {inputs.map(({ name, ...props }) => (
-          <TextField
-            key={ name }
-            { ...props }
-            name={ name }
-            value={ filters[name] }
-            onChange={ onInputChange }
-            error={ !validate(name, filters[name]) }
-          />
-        ))}
+        <h1 className="title">adicione nova carta</h1>
+        {renderInputs}
         <div>
           <label htmlFor="cardRare">Raridade</label>
           <select
@@ -55,14 +73,22 @@ export default function Form({
             <option value="muito raro">muito raro</option>
           </select>
         </div>
-        {renderTrunfo}
-        <button
-          type="submit"
-          data-testid="save-button"
-          disabled={ isSaveButtonDisabled }
-        >
-          Salvar
-        </button>
+        <p className="form-total">
+          Total de pontos =
+          {' '}
+          {total}
+        </p>
+        <div className="form-actions">
+          {renderTrunfo}
+          <button
+            type="submit"
+            data-testid="save-button"
+            disabled={ isSaveButtonDisabled }
+            className="save-btn"
+          >
+            Salvar
+          </button>
+        </div>
       </section>
     </form>
   );
@@ -74,6 +100,8 @@ Form.propTypes = {
   cardAttr1: PropTypes.string.isRequired,
   cardAttr2: PropTypes.string.isRequired,
   cardAttr3: PropTypes.string.isRequired,
+  total: PropTypes.string.isRequired,
+  reamingPoints: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
